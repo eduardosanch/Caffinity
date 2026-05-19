@@ -1,11 +1,14 @@
 import React from 'react';
 import AppLayout from '@/components/AppLayout';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import SwipeScreen from './components/SwipeScreen';
 
 export default function DescubrimientoDeCafeterias() {
   return (
-    <AppLayout>
-      <SwipeScreen />
-    </AppLayout>
+    <ProtectedRoute>
+      <AppLayout>
+        <SwipeScreen />
+      </AppLayout>
+    </ProtectedRoute>
   );
 }

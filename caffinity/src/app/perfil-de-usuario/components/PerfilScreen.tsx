@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import AppImage from '@/components/ui/AppImage';
 import AppLogo from '@/components/ui/AppLogo';
+import { useAuth } from '@/contexts/AuthContext';
 import { usuarioActual, listaDeseosData, matchesData, resenasData } from './perfil-data';
 
 import CafeteriaCard from './CafeteriaCard';
@@ -173,7 +175,7 @@ export default function PerfilScreen() {
         </div>
 
         {/* Tab content */}
-        <div role="tabpanel">
+        <div role="tabpanel" className="pb-8">
           {tabActiva === 'deseos' && (
             <div className="flex flex-col gap-3 animate-fade-in-up">
               {listaDeseosData.length === 0 ? (
@@ -247,6 +249,8 @@ function EmptyTabState({ emoji, titulo, descripcion }: { emoji: string; titulo: 
 
 function SettingsModal({ onClose }: { onClose: () => void }) {
   const [visible, setVisible] = useState(false);
+  const { logout } = useAuth();
+  const router = useRouter();
 
   React.useEffect(() => {
     const t = setTimeout(() => setVisible(true), 30);
@@ -256,6 +260,12 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
   const handleClose = () => {
     setVisible(false);
     setTimeout(onClose, 300);
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleClose();
+    router.push('/auth');
   };
 
   const opciones = [
@@ -310,7 +320,7 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
             </button>
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 mb-4">
             {opciones.map((op) => (
               <button
                 key={op.key}
@@ -337,8 +347,9 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Cerrar sesión */}
-          <div className="mt-4 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
+          <div style={{ borderTop: '1px solid var(--border)' }} className="pt-4">
             <button
+              onClick={handleLogout}
               className="w-full py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 active:scale-95"
               style={{ background: 'rgba(248,113,113,0.10)', color: '#ef4444', border: '1.5px solid rgba(248,113,113,0.25)' }}
             >

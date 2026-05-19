@@ -7,6 +7,7 @@ import { cafeteriasData, actividadConfig, type Cafeteria } from './cafeterias-da
 import MatchOverlay from './MatchOverlay';
 import GestureGuide from './GestureGuide';
 import WishlistToast from './WishlistToast';
+import FilterModal from './FilterModal';
 
 type SwipeDirection = 'left' | 'right' | null;
 type StampType = 'like' | 'nope' | null;
@@ -35,6 +36,8 @@ export default function SwipeScreen() {
   const [showWishlistToast, setShowWishlistToast] = useState(false);
   const [wishlistToastCafe, setWishlistToastCafe] = useState('');
   const [likedCafes, setLikedCafes] = useState<string[]>([]);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filterRadius, setFilterRadius] = useState(50);
   const [cardState, setCardState] = useState<CardState>({
     isDragging: false,
     startX: 0,
@@ -54,6 +57,13 @@ export default function SwipeScreen() {
   const hasMore = currentIndex < cards.length;
 
   const dismissGuide = useCallback(() => setShowGuide(false), []);
+
+  const handleApplyFilters = useCallback((radius: number) => {
+    setFilterRadius(radius);
+    // Backend integration point: GET /api/cafes?radius=${radius}&lat=X&lng=Y
+    // For now, we'll keep all cafes but in production, filter by distance
+    console.log(`Filtros aplicados - Radio: ${radius}km`);
+  }, []);
 
   const handleSwipe = useCallback((direction: 'left' | 'right') => {
     if (isAnimating || !currentCafe) return;
@@ -176,6 +186,7 @@ export default function SwipeScreen() {
             <span>{likedCafes.length} me gusta</span>
           </div>
           <button
+            onClick={() => setShowFilterModal(true)}
             className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-150 active:scale-95"
             style={{ background: 'rgba(82,44,93,0.08)' }}
             aria-label="Filtros"
@@ -460,6 +471,14 @@ export default function SwipeScreen() {
 
       {/* Wishlist toast */}
       {showWishlistToast && <WishlistToast cafeName={wishlistToastCafe} />}
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={showFilterModal}
+        onClose={() => setShowFilterModal(false)}
+        onApply={handleApplyFilters}
+        initialRadius={filterRadius}
+      />
     </div>
   );
 }
