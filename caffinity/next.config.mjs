@@ -14,8 +14,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  basePath: '/NOMBRE-DEL-REPO',
-  assetPrefix: '/NOMBRE-DEL-REPO/',
+  basePath: '/Caffinity',
+  assetPrefix: '/Caffinity/',
 
   images: {
     remotePatterns: imageHosts,
