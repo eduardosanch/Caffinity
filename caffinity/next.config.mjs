@@ -14,10 +14,14 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
+  basePath: '/NOMBRE-DEL-REPO',
+  assetPrefix: '/NOMBRE-DEL-REPO/',
+
   images: {
     remotePatterns: imageHosts,
     minimumCacheTTL: 60,
     unoptimized: true,
   }
 };
+
 export default nextConfig;
