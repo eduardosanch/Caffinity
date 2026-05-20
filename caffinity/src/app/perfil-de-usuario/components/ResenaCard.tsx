@@ -10,9 +10,11 @@ interface ResenaCardProps {
 
 export default function ResenaCard({ resena }: ResenaCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedText, setEditedText] = useState(resena.texto);
   const MAX_LEN = 120;
-  const isLong = resena.texto.length > MAX_LEN;
-  const displayText = expanded || !isLong ? resena.texto : resena.texto.slice(0, MAX_LEN) + '…';
+  const isLong = editedText.length > MAX_LEN;
+  const displayText = expanded || !isLong ? editedText : editedText.slice(0, MAX_LEN) + '…';
 
   const fechaFormateada = (() => {
     const [y, m, d] = resena.fecha.split('-');
@@ -76,17 +78,58 @@ export default function ResenaCard({ resena }: ResenaCardProps) {
 
       {/* Review text */}
       <div className="px-3 pt-2 pb-3">
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--foreground)' }}>
-          {displayText}
-        </p>
-        {isLong && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-xs font-bold mt-1 transition-colors duration-150"
-            style={{ color: 'var(--primary)' }}
-          >
-            {expanded ? 'Ver menos' : 'Ver más'}
-          </button>
+        {isEditing ? (
+          <div className="space-y-2">
+            <textarea
+              value={editedText}
+              onChange={(e) => setEditedText(e.target.value)}
+              className="w-full p-2 border rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-0"
+              style={{
+                borderColor: 'var(--border)',
+                color: 'var(--foreground)',
+                background: 'var(--background)',
+              }}
+              rows={4}
+            />
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="text-xs font-bold px-3 py-1.5 rounded-lg transition-all duration-150 active:scale-95"
+                style={{
+                  background: 'var(--muted)',
+                  color: 'var(--foreground)',
+                  border: '1px solid var(--border)',
+                }}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  setIsEditing(false);
+                  setExpanded(false);
+                }}
+                className="text-xs font-bold px-3 py-1.5 rounded-lg transition-all duration-150 active:scale-95"
+                style={{ background: 'var(--primary)', color: 'white' }}
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--foreground)' }}>
+              {displayText}
+            </p>
+            {isLong && (
+              <button
+                onClick={() => setExpanded(!expanded)}
+                className="text-xs font-bold mt-1 transition-colors duration-150"
+                style={{ color: 'var(--primary)' }}
+              >
+                {expanded ? 'Ver menos' : 'Ver más'}
+              </button>
+            )}
+          </>
         )}
       </div>
 
@@ -105,6 +148,7 @@ export default function ResenaCard({ resena }: ResenaCardProps) {
           </span>
         </div>
         <button
+          onClick={() => setIsEditing(true)}
           className="text-xs font-bold px-2.5 py-1 rounded-lg transition-all duration-150 active:scale-95"
           style={{ background: 'var(--primary)', color: 'white' }}
         >

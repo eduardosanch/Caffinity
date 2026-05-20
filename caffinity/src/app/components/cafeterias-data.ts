@@ -7,7 +7,7 @@ export interface Cafeteria {
   ciudad: string;
   precioRango: string;
   calificacion: number;
-  totalResenas: number;
+  totalreseñas: number;
   actividades: Actividad[];
   descripcion: string;
   imagen: string;
@@ -34,7 +34,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$$',
   calificacion: 4.8,
-  totalResenas: 312,
+  totalreseñas: 312,
   actividades: ['fotos', 'amigos', 'estudiar'],
   descripcion: 'Espacio luminoso con plantas tropicales, lattes de especialidad y ambiente perfecto para sesiones fotográficas. Arquitectura moderna con luz natural todo el día.',
   imagen: "https://images.unsplash.com/photo-1633944241961-e511ab23455f",
@@ -51,7 +51,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$',
   calificacion: 4.6,
-  totalResenas: 198,
+  totalreseñas: 198,
   actividades: ['estudiar', 'amigos'],
   descripcion: 'El rincón favorito de los estudiantes. WiFi ultrarrápido, enchufes en cada mesa y música lo-fi que ayuda a concentrarse. El cold brew es legendario.',
   imagen: "https://images.unsplash.com/photo-1695738655574-3a11b87394b8",
@@ -68,7 +68,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$$$',
   calificacion: 4.9,
-  totalResenas: 541,
+  totalreseñas: 541,
   actividades: ['fotos', 'amigos', 'comida'],
   descripcion: 'Cafetería boutique rodeada de flores frescas. Pastelería artesanal con croissants de mantequilla francesa y café de origen único. El lugar más instagrameable de la ciudad.',
   imagen: "https://images.unsplash.com/photo-1626916772777-dc79f882253f",
@@ -85,7 +85,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$',
   calificacion: 4.5,
-  totalResenas: 87,
+  totalreseñas: 87,
   actividades: ['estudiar', 'comida'],
   descripcion: 'Café de especialidad con tueste propio. Menú de desayunos contundentes y el mejor espresso de la colonia. Ambiente tranquilo y sin pretensiones.',
   imagen: "https://images.unsplash.com/photo-1543148369-2b0672c4b686",
@@ -102,7 +102,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$$',
   calificacion: 4.7,
-  totalResenas: 276,
+  totalreseñas: 276,
   actividades: ['fotos', 'amigos', 'comida'],
   descripcion: 'Aesthetic café en tonos pastel con lattes de lavanda y mariposa azul. Las bebidas son obras de arte. Ideal para contenido de redes sociales y tardes con amigas.',
   imagen: "https://images.unsplash.com/photo-1675940529917-ffbcb6e1e326",
@@ -119,7 +119,7 @@ export const cafeteriasData: Cafeteria[] = [
   ciudad: 'Ciudad de México',
   precioRango: '$$',
   calificacion: 4.4,
-  totalResenas: 143,
+  totalreseñas: 143,
   actividades: ['estudiar', 'fotos', 'amigos'],
   descripcion: 'Jardín secreto con mesas entre plantas y árboles. Menú vegano y opciones de café de especialidad. El lugar perfecto para leer o trabajar en un ambiente natural.',
   imagen: "https://images.unsplash.com/photo-1646116370969-27fedd2393e7",

@@ -56,7 +56,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 bottom-nav-blur border-t border-border"
+      className="fixed bottom-0 left-0 right-0 z-40 bottom-nav-blur border-t border-border"
       style={{ boxShadow: '0 -4px 24px rgba(82, 44, 93, 0.08)' }}
       role="navigation"
       aria-label="Navegación principal"

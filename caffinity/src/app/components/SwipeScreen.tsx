@@ -375,7 +375,7 @@ export default function SwipeScreen() {
                       ))}
                     </div>
                     <span className="text-white font-bold text-sm">{currentCafe.calificacion}</span>
-                    <span className="text-white/60 text-xs">({currentCafe.totalResenas})</span>
+                    <span className="text-white/60 text-xs">({currentCafe.totalreseñas})</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span

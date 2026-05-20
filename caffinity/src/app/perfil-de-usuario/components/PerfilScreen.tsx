@@ -5,21 +5,23 @@ import { useRouter } from 'next/navigation';
 import AppImage from '@/components/ui/AppImage';
 import AppLogo from '@/components/ui/AppLogo';
 import { useAuth } from '@/contexts/AuthContext';
-import { usuarioActual, listaDeseosData, matchesData, resenasData } from './perfil-data';
+import { usuarioActual, listaDeseosData, matchesData, reseñasData, publicacionesData } from './perfil-data';
 
 import CafeteriaCard from './CafeteriaCard';
 import ResenaCard from './ResenaCard';
+import PublicacionesGrid from './PublicacionesGrid';
 
-type TabId = 'deseos' | 'matches' | 'resenas';
+type TabId = 'deseos' | 'matches' | 'reseñas' | 'publicaciones';
 
 const tabs: { key: string; id: TabId; label: string; emoji: string; count: number }[] = [
+  { key: 'tab-publicaciones', id: 'publicaciones', label: 'Publicaciones', emoji: '�', count: publicacionesData.length },
   { key: 'tab-deseos', id: 'deseos', label: 'Lista de deseos', emoji: '🔖', count: listaDeseosData.length },
   { key: 'tab-matches', id: 'matches', label: 'Mis matches', emoji: '❤️', count: matchesData.length },
-  { key: 'tab-resenas', id: 'resenas', label: 'Reseñas', emoji: '⭐', count: resenasData.length },
+  { key: 'tab-reseñas', id: 'reseñas', label: 'Reseñas', emoji: '⭐', count: reseñasData.length },
 ];
 
 export default function PerfilScreen() {
-  const [tabActiva, setTabActiva] = useState<TabId>('deseos');
+  const [tabActiva, setTabActiva] = useState<TabId>('publicaciones');
   const [showSettings, setShowSettings] = useState(false);
 
   return (
@@ -124,7 +126,7 @@ export default function PerfilScreen() {
           {[
             { key: 'stat-matches', value: usuarioActual.stats.matches, label: 'Matches' },
             { key: 'stat-deseos', value: usuarioActual.stats.listaDeseos, label: 'Deseos' },
-            { key: 'stat-resenas', value: usuarioActual.stats.resenas, label: 'Reseñas' },
+            { key: 'stat-reseñas', value: usuarioActual.stats.reseñas, label: 'Reseñas' },
             { key: 'stat-seguidores', value: usuarioActual.stats.seguidores, label: 'Seguidores' },
             { key: 'stat-siguiendo', value: usuarioActual.stats.siguiendo, label: 'Siguiendo' },
           ].map((stat) => (
@@ -176,6 +178,21 @@ export default function PerfilScreen() {
 
         {/* Tab content */}
         <div role="tabpanel" className="pb-8">
+
+          {tabActiva === 'publicaciones' && (
+            <div className="animate-fade-in-up">
+              {publicacionesData.length === 0 ? (
+                <EmptyTabState
+                  emoji="📸"
+                  titulo="Aún no has compartido publicaciones"
+                  descripcion="Captura momentos especiales en las cafeterías y comparte tu experiencia con otros usuarios."
+                />
+              ) : (
+                <PublicacionesGrid publicaciones={publicacionesData} />
+              )}
+            </div>
+          )}
+
           {tabActiva === 'deseos' && (
             <div className="flex flex-col gap-3 animate-fade-in-up">
               {listaDeseosData.length === 0 ? (
@@ -208,16 +225,18 @@ export default function PerfilScreen() {
             </div>
           )}
 
-          {tabActiva === 'resenas' && (
+          
+
+          {tabActiva === 'reseñas' && (
             <div className="flex flex-col gap-4 animate-fade-in-up">
-              {resenasData.length === 0 ? (
+              {reseñasData.length === 0 ? (
                 <EmptyTabState
                   emoji="⭐"
                   titulo="Aún no has escrito reseñas"
                   descripcion="Visita una cafetería y comparte tu experiencia para ayudar a otros usuarios."
                 />
               ) : (
-                resenasData.map((resena) => (
+                reseñasData.map((resena) => (
                   <ResenaCard key={resena.id} resena={resena} />
                 ))
               )}
